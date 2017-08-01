@@ -26,7 +26,19 @@
         </a>
       </dd>
 
+      <dt># of Characters</dt>
+        <dd><%= Character.where(:movie_id => @movie.id).count %></dd>
+
     </dl>
+    
+<ul>
+  <% Character.where(:movie_id => @movie.id).each do |character| %>
+  <li><a href="/characters/<%= character.id %>"><%= character.name %></a></li>
+  <% end %>
+</ul>
+
+
+
   </div>
 
     <div class="btn-group btn-group-justified">
