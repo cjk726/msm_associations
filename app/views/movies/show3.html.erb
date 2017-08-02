@@ -21,33 +21,50 @@
       <dd><%= @movie.image_url %></dd>
 
       <dt>Director</dt>
-      <dd>
-        <a href="/directors/<%= @movie.director_id %>"><%= Director.find_by(:id => @movie.director_id).name %>
-        </a>
-      </dd>
-
-      <dt># of Characters</dt>
-        <dd><%= Character.where(:movie_id => @movie.id).count %></dd>
+      <%= Director.find_by(:id => @movie.director_id).name %>
+            
+      <dt>Link to Director</dt>
+      <dd><a href="/directors/<%= @movie.director_id %>">Director</a></dd>
+      
+      <dt>Number of characters</dt>
+      <dd><%= Character.where(:movie_id => @movie.id).count %></dd>
+      
+ 
 
     </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/movies" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/movies/<%= @movie.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_movie/<%= @movie.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>
+
+
+
+<!--OLD WAY OF DOING THE LOOKUP-->
+<!--<ul>-->
+<!--  <% Character.where(:movie_id => @movie.id).each do |character| %>-->
+<!--    <li><%= Actor.find_by(:id => character.actor_id).name %></li>-->
     
-<ul>
-  <% Character.where(:movie_id => @movie.id).each do |character| %>
-  <li><a href="/actors/<%= character.actor_id %>"><%= Actor.find_by(:id => character.actor_id).name %></a></li>
-  <% end %>
-
-</ul>
+<!--    <% end %>-->
+<!--</ul>-->
 
 <ul>
-  <% Character.where(:movie_id => @movie.id).each do |character| %>
-  <li><a href="/characters/<%= character.id %>"><%= character.name %></a></li>
-  <% end %>
-
+    <% @movie.characters.each do |character| %>
+    <li><%= character.actor.name %>(<%=character.name%>)</li>
+    <% end %>
 </ul>
 
 
-
-  <form action="/create_character" method="post">
+    <form action="/create_character" method="post">
       <!-- Hidden input for authenticity token to protect from forgery -->
       <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
@@ -84,24 +101,3 @@
       or
       <a href="/characters">Cancel</a>
     </form>
-
-
-
-
-
-
-
-  </div>
-
-    <div class="btn-group btn-group-justified">
-      <a href="/movies" class="btn btn-primary">
-        Back
-      </a>
-      <a href="/movies/<%= @movie.id %>/edit" class="btn btn-warning">
-        Edit
-      </a>
-      <a href="/delete_movie/<%= @movie.id %>" class="btn btn-danger" rel="nofollow">
-        Delete
-      </a>
-    </div>
-</div>
