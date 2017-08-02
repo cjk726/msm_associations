@@ -16,17 +16,25 @@
 
       <dt>Bio</dt>
       <dd><%= @actor.bio %></dd>
+      
+      <dt># of Characters</dt>
+      <dd><%= Character.where(:actor_id => @actor.id).count %></dd>
+
+      <dt>Filmography</dt>
+      <dd>
+        <ul>
+  
+          <% Character.where(:actor_id => @actor.id).each do |character| %>
+          <li><%= Movie.where(:id => character.movie_id).pluck(:title) %></li>
+          <% end %>
+  
+        </ul>
+      </dd>
+
 
     </dl>
 
-<ul>
-  
-  <% Character.where(:actor_id => @actor.id).each do |character| %>
-  <li><%= Movie.where(:id => character.movie_id).pluck(:title) %></li>
-  <% end %>
-  
 
-</ul>
 
 <ul>
   
