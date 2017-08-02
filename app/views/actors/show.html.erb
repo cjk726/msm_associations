@@ -10,14 +10,33 @@
 
       <dt>Dob</dt>
       <dd><%= @actor.dob %></dd>
+      
+      <dt>Image</dt>
+      <dd><img src="<%= @actor.image_url %>"></dd>
 
       <dt>Bio</dt>
       <dd><%= @actor.bio %></dd>
 
-      <dt>Image url</dt>
-      <dd><%= @actor.image_url %></dd>
-
     </dl>
+
+<ul>
+  
+  <% Character.where(:actor_id => @actor.id).each do |character| %>
+  <li><%= Movie.where(:id => character.movie_id).pluck(:title) %></li>
+  <% end %>
+  
+
+</ul>
+
+<ul>
+  
+  <% Character.where(:actor_id => @actor.id).each do |character| %>
+  <li><%= character.name %></li>
+  <% end %>
+  
+</ul>
+
+
 
     <div class="btn-group btn-group-justified">
       <a href="/actors" class="btn btn-primary">
