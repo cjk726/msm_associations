@@ -22,4 +22,5 @@ class Character < ApplicationRecord
 #  - name: no rules
 
 
+
 end
