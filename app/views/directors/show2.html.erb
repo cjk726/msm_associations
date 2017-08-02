@@ -12,7 +12,7 @@
       <dd><%= @director.dob %></dd>
 
       <dt>Bio</dt>
-      <dd><%= truncate(@director.bio) %></dd>
+      <dd><%= @director.bio %></dd>
 
       <dt>Image url</dt>
       <dd><%= @director.image_url %></dd>
@@ -37,9 +37,9 @@
 </div>
 
 <ul>
-  <% Movie.where(:director_id => @director.id).each do |movie| %>
-  <li><a href="/movies/<%= movie.id %>"><%= movie.title %></a></li>
-  <% end %>
+   <% Movie.where(:director_id => @director.id).each do |movie| %>
+   <li><a href= "/movies/<%=movie.id %>"><%=movie.title%></a></li>
+   <% end %>   
 </ul>
 
 
